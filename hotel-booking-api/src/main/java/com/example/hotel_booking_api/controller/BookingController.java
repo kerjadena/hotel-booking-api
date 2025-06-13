@@ -1,54 +1,53 @@
-//package com.example.hotel_booking_api.controller;
-//
-//import com.example.hotel_booking_api.model.Booking;
-//import com.example.hotel_booking_api.service.BookingService;
-//import jakarta.validation.Valid;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.time.LocalDate;
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping("/bookings")
-//public class BookingController {
-//
-//    private final BookingService bookingService;
-//
-//    public BookingController(BookingService bookingService) {
-//        this.bookingService = bookingService;
-//    }
-//
-//    @PostMapping
-//    public Booking createBooking(@Valid @RequestBody Booking booking) {
-//        return bookingService.save(booking);
-//    }
-//
-//    @GetMapping
-//    public List<Booking> getBookings(@RequestParam(required = false) LocalDate start,
-//                                     @RequestParam(required = false) LocalDate end) {
-//        if (start != null && end != null) {
-//            return bookingService.getBookingsByDateRange(start, end);
-//        }
-//        return bookingService.getAllBookings();
-//    }
-//
-//    @GetMapping("/{id}")
-//    public Booking getBooking(@PathVariable Long id) {
-//        return bookingService.getBooking(id);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public Booking updateBooking(@PathVariable Long id, @Valid @RequestBody Booking updated) {
-//        Booking existing = bookingService.getBooking(id);
-//        if (existing == null) throw new RuntimeException("Booking not found");
-//
-//        existing.setCheckIn(updated.getCheckIn());
-//        existing.setCheckOut(updated.getCheckOut());
-//        return bookingService.save(existing);
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public void deleteBooking(@PathVariable Long id) {
-//        bookingService.deleteBooking(id);
-//    }
-//}
+package com.example.hotel_booking_api.controller;
+
+import com.example.hotel_booking_api.model.Booking;
+import com.example.hotel_booking_api.service.BookingService;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@RequestMapping("/bookings")
+public class BookingController {
+    private final BookingService bookingService;
+
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Booking> createBooking(@RequestBody @Validated Booking booking) {
+        return ResponseEntity.ok(bookingService.createBooking(booking));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Booking> updateBooking(@PathVariable Long id,
+                                                  @RequestBody @Validated Booking booking) {
+        return ResponseEntity.ok(bookingService.updateBooking(id, booking));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+        bookingService.deleteBooking(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Booking>> getBookings(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        return ResponseEntity.ok(bookingService.getBookings(startDate, endDate));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+        return bookingService.getBookingById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+}
