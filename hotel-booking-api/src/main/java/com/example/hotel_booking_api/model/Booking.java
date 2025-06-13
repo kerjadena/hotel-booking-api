@@ -1,27 +1,32 @@
 package com.example.hotel_booking_api.model;
 
+import com.example.hotel_booking_api.validation.CheckInBeforeCheckOut;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
 import java.time.LocalDate;
 
+@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@CheckInBeforeCheckOut
 public class Booking {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Customer name is required")
+    @NotNull
+    private Long roomId;  // Sekarang hanya simpan ID room saja, tanpa relasi entity
+
+    @NotBlank
     private String customerName;
 
-    @Future(message = "Check-in date must be in the future")
+    @Future
     private LocalDate checkIn;
 
-    @Future(message = "Check-out date must be in the future")
+    @Future
     private LocalDate checkOut;
-
-    @Column(name = "room_id")
-    private Room roomId;
 }
