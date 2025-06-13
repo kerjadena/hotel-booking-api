@@ -5,7 +5,6 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import java.time.LocalDate;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,7 +22,6 @@ public class Booking {
     @Future(message = "Check-out date must be in the future")
     private LocalDate checkOut;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room room;
+    @Column(name = "room_id")
+    private Room roomId;
 }
