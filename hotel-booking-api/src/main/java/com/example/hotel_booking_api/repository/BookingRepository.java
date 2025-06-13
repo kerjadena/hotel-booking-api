@@ -1,20 +1,33 @@
 package com.example.hotel_booking_api.repository;
 
 import com.example.hotel_booking_api.model.Booking;
-import com.example.hotel_booking_api.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
-    List<Booking> findByCheckInBetween(LocalDate start, LocalDate end);
+    @Query("""
+        SELECT COUNT(b) FROM Booking b
+        WHERE b.roomId = :roomId
+        AND (:checkIn < b.checkOut AND :checkOut > b.checkIn)
+    """)
+    long countByRoomIdAndDateOverlap(
+            @Param("roomId") Long roomId,
+            @Param("checkIn") LocalDate checkIn,
+            @Param("checkOut") LocalDate checkOut
+    );
 
-    List<Booking> findByRoom(Room room);
-
-    // Untuk mengecek apakah ada booking yang tabrakan
-    boolean existsByRoomAndCheckInLessThanEqualAndCheckOutGreaterThanEqual(
-            Room room, LocalDate checkOut, LocalDate checkIn
+    @Query("""
+        SELECT b FROM Booking b
+        WHERE (:startDate IS NULL OR b.checkIn >= :startDate)
+          AND (:endDate IS NULL OR b.checkOut <= :endDate)
+    """)
+    List<Booking> findBookingsByDateRange(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate
     );
 }

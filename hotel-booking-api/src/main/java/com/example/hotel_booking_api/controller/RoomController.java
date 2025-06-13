@@ -1,6 +1,7 @@
 package com.example.hotel_booking_api.controller;
 
 import com.example.hotel_booking_api.model.Room;
+import com.example.hotel_booking_api.service.BookingService;
 import com.example.hotel_booking_api.service.RoomService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -9,15 +10,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
 
     private final RoomService roomService;
+    private final BookingService bookingService;
 
-    public RoomController(RoomService roomService) {
+    public RoomController(RoomService roomService, BookingService bookingService) {
         this.roomService = roomService;
+        this.bookingService = bookingService;
     }
 
     @PostMapping
@@ -28,8 +32,7 @@ public class RoomController {
 
     @GetMapping
     public ResponseEntity<List<Room>> getAllRooms() {
-        List<Room> rooms = roomService.getAllRooms();
-        return ResponseEntity.ok(rooms);
+        return ResponseEntity.ok(roomService.getAllRooms());
     }
 
     @GetMapping("/{id}")
@@ -40,12 +43,12 @@ public class RoomController {
     }
 
     @GetMapping("/{id}/availability")
-    public ResponseEntity<Boolean> checkAvailability(
+    public ResponseEntity<Map<String, Boolean>> checkAvailability(
             @PathVariable Long id,
-            @RequestParam("checkIn") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkIn,
-            @RequestParam("checkOut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOut
-    ) {
-        boolean isAvailable = roomService.isRoomAvailable(id, checkIn, checkOut);
-        return ResponseEntity.ok(isAvailable);
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkIn,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOut) {
+
+        boolean isAvailable = bookingService.isAvailable(id, checkIn, checkOut);
+        return ResponseEntity.ok(Map.of("available", isAvailable));
     }
 }
