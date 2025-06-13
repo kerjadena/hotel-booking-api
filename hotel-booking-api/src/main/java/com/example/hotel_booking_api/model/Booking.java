@@ -19,7 +19,7 @@ public class Booking {
     private Long id;
 
     @NotNull
-    private Long roomId;  // Sekarang hanya simpan ID room saja, tanpa relasi entity
+    private Long roomId;
 
     @NotBlank
     private String customerName;

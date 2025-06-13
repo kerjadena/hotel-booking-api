@@ -2,7 +2,7 @@ package com.example.hotel_booking_api.controller;
 
 import com.example.hotel_booking_api.model.Booking;
 import com.example.hotel_booking_api.service.BookingService;
-
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
+
     private final BookingService bookingService;
 
     public BookingController(BookingService bookingService) {
@@ -27,7 +28,7 @@ public class BookingController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long id,
-                                                  @RequestBody @Validated Booking booking) {
+                                                 @RequestBody @Validated Booking booking) {
         return ResponseEntity.ok(bookingService.updateBooking(id, booking));
     }
 
@@ -39,13 +40,13 @@ public class BookingController {
 
     @GetMapping
     public ResponseEntity<List<Booking>> getBookings(
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return ResponseEntity.ok(bookingService.getBookings(startDate, endDate));
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+        return ResponseEntity.ok(bookingService.getBookings(start, end));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+    public ResponseEntity<Booking> getBooking(@PathVariable Long id) {
         return bookingService.getBookingById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

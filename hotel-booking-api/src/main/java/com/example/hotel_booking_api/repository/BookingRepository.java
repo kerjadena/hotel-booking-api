@@ -14,7 +14,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
         SELECT COUNT(b) FROM Booking b
         WHERE b.roomId = :roomId
         AND (:checkIn < b.checkOut AND :checkOut > b.checkIn)
-        """)
+    """)
     long countByRoomIdAndDateOverlap(
             @Param("roomId") Long roomId,
             @Param("checkIn") LocalDate checkIn,

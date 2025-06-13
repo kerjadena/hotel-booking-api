@@ -50,7 +50,7 @@ public class BookingService {
     public void deleteBooking(Long id) {
         bookingRepository.deleteById(id);
     }
-// isavailable benerin
+
     public boolean isAvailable(Long roomId, LocalDate checkIn, LocalDate checkOut) {
         return isAvailable(roomId, checkIn, checkOut, null);
     }
