@@ -1,7 +1,6 @@
 package com.example.hotel_booking_api.service;
 
 import com.example.hotel_booking_api.model.Room;
-import com.example.hotel_booking_api.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

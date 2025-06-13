@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ca865d0-aa23-45ca-97a5-5cfa63729ae4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/hotel-booking-api/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-booking-api/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hotel-booking-api/src/main/java/com/example/hotel_booking_api/controller/BookingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hotel-booking-api/src/main/java/com/example/hotel_booking_api/model/Booking.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hotel-booking-api/src/main/java/com/example/hotel_booking_api/repository/BookingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hotel-booking-api/src/main/java/com/example/hotel_booking_api/service/BookingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hotel-booking-api/src/main/java/com/example/hotel_booking_api/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hotel-booking-api/src/main/java/com/example/hotel_booking_api/service/RoomService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,17 +36,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
-    "last_opened_file_path": "C:/Users/71488/fifgroup-MT/streamIT/hotel-booking-api",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/71488/fifgroup-MT/streamIT/hotel-booking-api&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="1ca865d0-aa23-45ca-97a5-5cfa63729ae4" name="Changes" comment="" />
