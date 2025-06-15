@@ -43,12 +43,13 @@ public class RoomController {
     }
 
     @GetMapping("/{id}/availability")
-    public ResponseEntity<Map<String, Boolean>> checkAvailability(
+    public ResponseEntity<Map<String, Object>> checkAvailability(
             @PathVariable Long id,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkIn,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkOut) {
 
         boolean isAvailable = bookingService.isAvailable(id, checkIn, checkOut);
-        return ResponseEntity.ok(Map.of("available", isAvailable));
+        String message = isAvailable ? "Room available" : "Room not available";
+        return ResponseEntity.ok(Map.of("message", message));
     }
 }
