@@ -1,5 +1,6 @@
 package com.example.hotel_booking_api.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -16,6 +17,7 @@ public class Room {
 
     @NotBlank(message = "Room number is required")
     @Column(nullable = false, unique = true)
+    @JsonProperty("room_number")
     private String roomNumber;
 
     private String type;
